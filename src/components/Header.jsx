@@ -17,7 +17,7 @@ const Header = () => {
     <Container maxWidth="xl" className="bg-white h-12 sticky top-0 z-30">
       <div className="h-full flex items-center justify-between">
         <BreadCrumbs />
-        <div className="flex items-center h-8 bg-gray-200 w-2/4 gap-2 px-2 rounded-md">
+        <div className="flex items-center h-8 bg-gray-100 w-2/4 gap-2 px-2 rounded-md">
           <SearchIcon className="text-gray-400" fontSize="small" />
           <input
             className="bg-transparent w-full outline-none"

@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDashboardContext } from "../context/DashboardProvider";
-import CloseIcon from '@mui/icons-material/Close';
-import AddIcon from '@mui/icons-material/Add';
+import CloseIcon from "@mui/icons-material/Close";
+import AddIcon from "@mui/icons-material/Add";
 
 const FormMenu = () => {
   const { register, handleSubmit, reset } = useForm();
-  const { dashboardData, formDialog, setFormDialog, addWidget, toggleWidgetVisibility } = useDashboardContext();
+  const {
+    dashboardData,
+    formDialog,
+    setFormDialog,
+    addWidget,
+    toggleWidgetVisibility,
+  } = useDashboardContext();
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
 
   const [selectedCategory, setSelectedCategory] = useState(
     dashboardData.categories?.[0]?.id || null
@@ -30,7 +35,6 @@ const FormMenu = () => {
 
     return initialVisibility;
   });
-
 
   useEffect(() => {
     if (formDialog) {
@@ -71,7 +75,9 @@ const FormMenu = () => {
         category.widgets.some((widget) => widget.id === widgetId)
       );
       if (category) {
-        const widget = category.widgets.find((widget) => widget.id === widgetId);
+        const widget = category.widgets.find(
+          (widget) => widget.id === widgetId
+        );
         if (widget.shown !== isShown) {
           toggleWidgetVisibility(category.id, widgetId);
         }
@@ -82,7 +88,7 @@ const FormMenu = () => {
   };
 
   if (!dashboardData.categories || dashboardData.categories.length === 0) {
-    return null; 
+    return null;
   }
 
   return (
@@ -95,87 +101,104 @@ const FormMenu = () => {
           onClick={formReset}
         ></div>
         <div className="flex flex-col items-end min-h-screen">
-          <div className={`relative transform w-full max-w-xl duration-300 p-4 px-6 h-full min-h-screen bg-white rounded-sm shadow-lg ${isAnimating ? "translate-x-0" : "translate-x-full" }`}>
-
-              <div className="flex items-center text-gray-700 justify-between mb-3">
-                <h2 className="font-semibold text-lg">Add Widget</h2>
-                <CloseIcon className="text-2xl cursor-pointer" onClick={formReset} />
-              </div>
-              <p className="text-sm font-medium mb-4">Personalize your dashboard by adding the following widgets</p>
+          <div
+            className={`relative transform w-full max-w-xl duration-300 p-4 px-4 h-full min-h-screen bg-white rounded-sm shadow-lg ${
+              isAnimating ? "translate-x-0" : "translate-x-full"
+            }`}
+          >
+            <div className="flex items-center text-gray-700 justify-between mb-3">
+              <h2 className="font-semibold text-lg">Add Widget</h2>
+              <CloseIcon
+                className="text-2xl cursor-pointer"
+                onClick={formReset}
+              />
+            </div>
+            <p className="text-sm font-medium mb-4">
+              Personalize your dashboard by adding the following widgets
+            </p>
 
             <div className="overflow-hidden h-[calc(100vh-18vh)] flex flex-col justify-between py-3">
-            <div>
-
-              {/* Tabs for categories */}
-              <div className="flex mb-4">
-                {dashboardData.categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className={`py-2 px-4 border-b-2 ${
-                      selectedCategory === category.id ? 'font-semibold border-b-black' : ''
-                    }`}
-                  >
-                    {category.shortname}
-                  </button>
-                ))}
-              </div>
-
-              {/* Checkbox list for existing widgets */}
-              <div className="mb-4 flex flex-col">
-                {dashboardData.categories
-                  .find((category) => category.id === selectedCategory)
-                  ?.widgets.map((widget) => (
-                    <label key={widget.id} className="flex items-center space-x-3">
-                      <input
-                        type="checkbox"
-                        onChange={handleWidgetCheckboxChange(widget.id)}
-                        checked={widgetVisibility[widget.id]}
-                      />
-                      <span>{widget.name}</span>
-                    </label>
+              <div>
+                {/* Tabs for categories */}
+                <div className="flex mb-4">
+                  {dashboardData.categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setSelectedCategory(category.id)}
+                      className={`py-2 px-4 border-b-2 ${
+                        selectedCategory === category.id
+                          ? "font-semibold border-b-black"
+                          : ""
+                      }`}
+                    >
+                      {category.shortname}
+                    </button>
                   ))}
-              </div>
-
-              {/* Add Widget Button/Icon */}
-              {!showAddWidgetInput && (
-                <div className="flex items-center space-x-2 mb-4">
-                  <AddIcon
-                    className="text-blue-950 cursor-pointer"
-                    onClick={() => setShowAddWidgetInput(true)}
-                  />
-                  <span className="text-blue-950 cursor-pointer" onClick={() => setShowAddWidgetInput(true)}>
-                    Add Widget
-                  </span>
                 </div>
-              )}
 
-              {/* Input field for adding a new widget */}
-              {showAddWidgetInput && (
-                <form onSubmit={handleSubmit(handleAddWidget)} className="mb-4">
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="text"
-                      {...register("widgetName", { required: true })}
-                      className=" border-b-2 outline-none "
-                      placeholder="Enter widget name"
+                {/* Checkbox list for existing widgets */}
+                <div className="mb-4 flex flex-col gap-2">
+                  {dashboardData.categories
+                    .find((category) => category.id === selectedCategory)
+                    ?.widgets.map((widget) => (
+                      <label
+                        key={widget.id}
+                        className="custom-checkbox flex border p-1 px-2 items-center rounded-sm border-gray-300 space-x-3"
+                      >
+                        <input
+                          type="checkbox"
+                          onChange={handleWidgetCheckboxChange(widget.id)}
+                          checked={widgetVisibility[widget.id]}
+                        />
+                        <span>{widget.name}</span>
+                      </label>
+                    ))}
+                </div>
+                {/* Add Widget Button/Icon */}
+                {!showAddWidgetInput && (
+                  <div className="flex items-center space-x-2 mb-4">
+                    <AddIcon
+                      className="text-blue-950 cursor-pointer"
+                      onClick={() => setShowAddWidgetInput(true)}
                     />
-                    <button
-                      onClick={() => setShowAddWidgetInput(false)}
-                      className="border border-black text-gray-600 py-[0.1rem] px-2 rounded-md"
+                    <span
+                      className="text-blue-950 cursor-pointer"
+                      onClick={() => setShowAddWidgetInput(true)}
                     >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      className="bg-blue-950 text-white py-[0.1rem] px-4 rounded-md"
-                    >
-                      Add
-                    </button>
+                      Add Widget
+                    </span>
                   </div>
-                </form>
-              )}
-            </div>
+                )}
+
+                {/* Input field for adding a new widget */}
+                {showAddWidgetInput && (
+                  <form
+                    onSubmit={handleSubmit(handleAddWidget)}
+                    className="mb-4"
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="text"
+                        {...register("widgetName", { required: true })}
+                        className=" border-b-2 outline-none "
+                        placeholder="Enter widget name"
+                      />
+                      <button
+                        onClick={() => setShowAddWidgetInput(false)}
+                        className="border border-black text-gray-600 py-[0.1rem] px-2 rounded-md"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="bg-blue-950 text-white py-[0.1rem] px-4 rounded-md"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
 
               <div className="flex gap-2 justify-end">
                 <button
@@ -193,7 +216,6 @@ const FormMenu = () => {
                   Confirm
                 </button>
               </div>
-
             </div>
           </div>
         </div>
