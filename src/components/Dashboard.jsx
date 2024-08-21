@@ -31,7 +31,7 @@ const Dashboard = () => {
 
 
         <div className="flex flex-col gap-3 items-start w-full px-1 mt-2">
-      {dashboardData.categories.map((category) => (
+      {dashboardData?.categories?.map((category) => (
         <Category
           key={category.id}
           category={category}

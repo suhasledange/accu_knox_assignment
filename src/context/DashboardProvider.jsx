@@ -20,12 +20,13 @@ const addShownKeyToInitialData = (data) => {
 
 export const DashboardProvider = ({ children }) => {
   const [formDialog, setFormDialog] = useState(false);
-
   const [dashboardData, setDashboardData] = useState(() => {
     const savedData = localStorage.getItem('dashboardData');
     const parsedData = savedData ? JSON.parse(savedData) : initialDashboardData;
     return addShownKeyToInitialData(parsedData);
   });
+
+  const [searchResults, setSearchResults] = useState(null);
 
   const saveDataToLocalStorage = (data) => {
     localStorage.setItem('dashboardData', JSON.stringify(data));
@@ -35,6 +36,7 @@ export const DashboardProvider = ({ children }) => {
     const savedData = localStorage.getItem('dashboardData');
     const parsedData = savedData ? JSON.parse(savedData) : initialDashboardData;
     setDashboardData(addShownKeyToInitialData(parsedData));
+    setSearchResults(null);
   };
 
   const addWidget = (categoryId, widgetName, widgetText) => {
@@ -50,7 +52,7 @@ export const DashboardProvider = ({ children }) => {
                   id: `${categoryId}-${widgetName.toLowerCase().replace(/\s+/g, '-')}`,
                   name: widgetName,
                   text: widgetText,
-                  shown: true, 
+                  shown: true,
                 },
               ],
             }
@@ -59,6 +61,7 @@ export const DashboardProvider = ({ children }) => {
     };
     setDashboardData(updatedData);
     saveDataToLocalStorage(updatedData);
+    setSearchResults(null);
   };
 
   const removeWidget = (categoryId, widgetId) => {
@@ -75,6 +78,7 @@ export const DashboardProvider = ({ children }) => {
     };
     setDashboardData(updatedData);
     saveDataToLocalStorage(updatedData);
+    setSearchResults(null);
   };
 
   const toggleWidgetVisibility = (categoryId, widgetId) => {
@@ -85,9 +89,7 @@ export const DashboardProvider = ({ children }) => {
           ? {
               ...category,
               widgets: category.widgets.map((widget) =>
-                widget.id === widgetId
-                  ? { ...widget, shown: !widget.shown }
-                  : widget
+                widget.id === widgetId ? { ...widget, shown: !widget.shown } : widget
               ),
             }
           : category
@@ -95,7 +97,29 @@ export const DashboardProvider = ({ children }) => {
     };
     setDashboardData(updatedData);
     saveDataToLocalStorage(updatedData);
+    setSearchResults(null);
   };
+
+  const searchWidgets = (searchText) => {
+    if (!searchText) {
+      setSearchResults(null);
+      return;
+    }
+  
+    const lowercasedText = searchText.toLowerCase();
+    const results = dashboardData.categories.flatMap((category) =>
+      category.widgets.filter(
+        (widget) =>
+          widget.name.toLowerCase().includes(lowercasedText)
+      )
+    );
+  
+    setSearchResults(results.length > 0 ? results : null);
+  };
+
+  const dataToRender = searchResults
+    ? { ...dashboardData, categories: [{ id: 'search', name: 'Search Results', widgets: searchResults }] }
+    : dashboardData;
 
   useEffect(() => {
     fetchDashboardData();
@@ -104,13 +128,14 @@ export const DashboardProvider = ({ children }) => {
   return (
     <DashboardContext.Provider
       value={{
-        dashboardData,
+        dashboardData: dataToRender,
         addWidget,
         removeWidget,
         toggleWidgetVisibility,
         fetchDashboardData,
         formDialog,
         setFormDialog,
+        searchWidgets,
       }}
     >
       {children}

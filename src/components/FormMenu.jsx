@@ -7,16 +7,24 @@ import AddIcon from '@mui/icons-material/Add';
 const FormMenu = () => {
   const { register, handleSubmit, reset } = useForm();
   const { dashboardData, formDialog, setFormDialog, addWidget, toggleWidgetVisibility } = useDashboardContext();
-  const [selectedCategory, setSelectedCategory] = useState(dashboardData.categories[0]?.id);
+
+  const [selectedCategory, setSelectedCategory] = useState(
+    dashboardData.categories?.[0]?.id || null
+  );
+
   const [showAddWidgetInput, setShowAddWidgetInput] = useState(false);
 
   const [widgetVisibility, setWidgetVisibility] = useState(() => {
     const initialVisibility = {};
-    dashboardData.categories.forEach((category) => {
-      category.widgets.forEach((widget) => {
-        initialVisibility[widget.id] = widget.shown;
+
+    if (dashboardData && dashboardData.categories) {
+      dashboardData.categories.forEach((category) => {
+        category.widgets.forEach((widget) => {
+          initialVisibility[widget.id] = widget.shown;
+        });
       });
-    });
+    }
+
     return initialVisibility;
   });
 
@@ -35,7 +43,7 @@ const FormMenu = () => {
 
   const handleAddWidget = (data) => {
     const { widgetName } = data;
-    if (widgetName) {
+    if (widgetName && selectedCategory) {
       addWidget(selectedCategory, widgetName, "Default widget text");
       setShowAddWidgetInput(false);
       reset();
@@ -59,6 +67,10 @@ const FormMenu = () => {
     formReset();
   };
 
+  if (!dashboardData.categories || dashboardData.categories.length === 0) {
+    return null; 
+  }
+
   return (
     formDialog && (
       <div className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden">
@@ -81,7 +93,9 @@ const FormMenu = () => {
                   <button
                     key={category.id}
                     onClick={() => setSelectedCategory(category.id)}
-                    className={`py-2 px-4 border-b-2 ${selectedCategory === category.id ? 'font-semibold border-b-black' : ''}`}
+                    className={`py-2 px-4 border-b-2 ${
+                      selectedCategory === category.id ? 'font-semibold border-b-black' : ''
+                    }`}
                   >
                     {category.shortname}
                   </button>
@@ -107,7 +121,7 @@ const FormMenu = () => {
               {/* Add Widget Button/Icon */}
               {!showAddWidgetInput && (
                 <div className="flex items-center space-x-2 mb-4">
-                  <AddIcon 
+                  <AddIcon
                     className="text-blue-950 cursor-pointer"
                     onClick={() => setShowAddWidgetInput(true)}
                   />
@@ -128,7 +142,7 @@ const FormMenu = () => {
                       placeholder="Enter widget name"
                     />
                     <button
-                      onClick={()=>setShowAddWidgetInput(false)}
+                      onClick={() => setShowAddWidgetInput(false)}
                       className="border border-black text-gray-600 py-[0.1rem] px-2 rounded-md"
                     >
                       Cancel
