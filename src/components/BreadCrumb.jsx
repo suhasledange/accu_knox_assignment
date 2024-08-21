@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Link from '@mui/material/Link';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-const BreadCrumbs = () => {
+const BreadCrumb = () => {
 
     const [breadcrumbs, setBreadcrumbs] = useState([{ label: 'Home', href: '/' }]);
     const location = useLocation();
@@ -38,4 +37,4 @@ const BreadCrumbs = () => {
   )
 }
 
-export default BreadCrumbs
+export default BreadCrumb

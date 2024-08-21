@@ -71,10 +71,6 @@ const FormMenu = () => {
     }
   };
 
-  const handleRemoveWidget = (categoryID,widgetID)=>{
-
-      
-  }
 
   const handleConfirm = () => {
     Object.keys(widgetVisibility).forEach((widgetId) => {
@@ -95,6 +91,11 @@ const FormMenu = () => {
     formReset();
   };
 
+  const handleClose = ()=>{
+    handleConfirm()
+    formReset()
+  }
+
   if (!dashboardData.categories || dashboardData.categories.length === 0) {
     return null;
   }
@@ -106,7 +107,7 @@ const FormMenu = () => {
           className={`fixed inset-0 w-full ${
             isAnimating ? "opacity-60" : "opacity-0"
           } duration-200  transform h-full bg-black `}
-          onClick={formReset}
+          onClick={handleClose}
         ></div>
         <div className="flex flex-col items-end min-h-screen">
           <div
@@ -118,7 +119,7 @@ const FormMenu = () => {
               <h2 className="font-semibold text-lg">Add Widget</h2>
               <CloseIcon
                 className="text-2xl cursor-pointer"
-                onClick={formReset}
+                onClick={handleClose}
               />
             </div>
             <p className="text-sm font-medium mb-4">
