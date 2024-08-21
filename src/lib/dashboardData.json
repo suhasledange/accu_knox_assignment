@@ -1,0 +1,80 @@
+{
+  "categories": [
+    {
+      "id": "cspm-executive-dashboard",
+      "name": "CSPM Executive Dashboard",
+      "shortname":"CSPM",
+      "widgets": [
+        {
+          "id": "cloud-accounts",
+          "name": "Cloud Accounts",
+          "text": "Random text",
+          "shown": true
+        },
+        {
+          "id": "cloud-account-risk",
+          "name": "Cloud Account Risk Assessment",
+          "text": "Random text",
+          "shown": true
+        }
+      ]
+    },
+    {
+      "id": "cwpp-dashboard",
+      "name": "CWPP Dashboard",
+      "shortname":"CWPP",
+      "widgets": [
+        {
+          "id": "top-namespace-alerts",
+          "name": "Top 5 Namespace Specific Alerts",
+          "text": "Random text",
+          "shown": true
+        },
+        {
+          "id": "workload-alerts",
+          "name": "Workload Alerts",
+          "text": "Random text",
+          "shown": true
+        },
+        {
+          "id": "sample-id",
+          "name": "Sample Workload",
+          "text": "Random text",
+          "shown": false
+        }
+      ]
+    },
+    {
+      "id": "image-dashboard",
+      "name": "Registry Scan",
+      "shortname":"Image",
+      "widgets": [
+        {
+          "id": "risk-assessment",
+          "name": "Image Risk Assessment",
+          "text": "Random text",
+          "shown": true
+        },
+        {
+          "id": "security-issues",
+          "name": "Image Security Issues",
+          "text": "Random text",
+          "shown": true
+        }
+      ]
+    },
+    {
+      "id": "Ticket-dashboard",
+      "name": "Ticket Dashboard",
+      "shortname":"Ticket",
+      "widgets": [
+        {
+          "id": "text-assessment",
+          "name": "Text Assessment",
+          "text": "Random text",
+          "shown": false
+        }
+      ]
+    }
+  ]
+}
