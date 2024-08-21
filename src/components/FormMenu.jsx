@@ -79,13 +79,16 @@ const FormMenu = () => {
           onClick={formReset}
         ></div>
         <div className="flex flex-col items-end min-h-screen">
-          <div className="relative transform w-full max-w-xl duration-300 p-4 px-6 h-screen bg-white rounded-sm shadow-lg translate-x-0">
-            <div className="h-full">
+          <div className="relative transform w-full max-w-xl duration-300 p-4 px-6 h-full min-h-screen bg-white rounded-sm shadow-lg translate-x-0">
+
               <div className="flex items-center text-gray-700 justify-between mb-3">
                 <h2 className="font-semibold text-lg">Add Widget</h2>
                 <CloseIcon className="text-2xl cursor-pointer" onClick={formReset} />
               </div>
               <p className="text-sm font-medium mb-4">Personalize your dashboard by adding the following widgets</p>
+
+            <div className="overflow-hidden h-[calc(100vh-18vh)] flex flex-col justify-between py-3">
+            <div>
 
               {/* Tabs for categories */}
               <div className="flex mb-4">
@@ -156,6 +159,7 @@ const FormMenu = () => {
                   </div>
                 </form>
               )}
+            </div>
 
               <div className="flex gap-2 justify-end">
                 <button
@@ -173,6 +177,7 @@ const FormMenu = () => {
                   Confirm
                 </button>
               </div>
+
             </div>
           </div>
         </div>
