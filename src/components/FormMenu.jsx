@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDashboardContext } from "../context/DashboardProvider";
 import CloseIcon from '@mui/icons-material/Close';
@@ -7,6 +7,9 @@ import AddIcon from '@mui/icons-material/Add';
 const FormMenu = () => {
   const { register, handleSubmit, reset } = useForm();
   const { dashboardData, formDialog, setFormDialog, addWidget, toggleWidgetVisibility } = useDashboardContext();
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
 
   const [selectedCategory, setSelectedCategory] = useState(
     dashboardData.categories?.[0]?.id || null
@@ -27,6 +30,17 @@ const FormMenu = () => {
 
     return initialVisibility;
   });
+
+
+  useEffect(() => {
+    if (formDialog) {
+      setIsVisible(true);
+      setTimeout(() => setIsAnimating(true), 200);
+    } else {
+      setIsAnimating(false);
+      setTimeout(() => setIsVisible(false), 200);
+    }
+  }, [formDialog]);
 
   const formReset = () => {
     setFormDialog(false);
@@ -72,14 +86,16 @@ const FormMenu = () => {
   }
 
   return (
-    formDialog && (
+    isVisible && (
       <div className="fixed inset-0 z-50 overflow-y-auto overflow-x-hidden">
         <div
-          className="fixed inset-0 w-full opacity-60 duration-200 transform h-full bg-black"
+          className={`fixed inset-0 w-full ${
+            isAnimating ? "opacity-60" : "opacity-0"
+          } duration-200  transform h-full bg-black `}
           onClick={formReset}
         ></div>
         <div className="flex flex-col items-end min-h-screen">
-          <div className="relative transform w-full max-w-xl duration-300 p-4 px-6 h-full min-h-screen bg-white rounded-sm shadow-lg translate-x-0">
+          <div className={`relative transform w-full max-w-xl duration-300 p-4 px-6 h-full min-h-screen bg-white rounded-sm shadow-lg ${isAnimating ? "translate-x-0" : "translate-x-full" }`}>
 
               <div className="flex items-center text-gray-700 justify-between mb-3">
                 <h2 className="font-semibold text-lg">Add Widget</h2>
