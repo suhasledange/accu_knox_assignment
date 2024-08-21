@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 const Widget = ({ widget, onRemoveWidget }) => {
   return widget.shown && (
-    <div className="border flex-shrink-0 w-[29rem] h-44 p-2 border-gray-300 overflow-hidden rounded-lg relative bg-gray-50">
+    <div className="border shadow-sm flex-shrink-0 w-[29rem] h-[12rem] p-2 border-gray-300 overflow-hidden rounded-lg relative bg-gray-50">
       <h3 className="text-md font-medium">{widget.name}</h3>
 
     <div className='flex items-center h-[calc(100%-20%)] justify-center'>

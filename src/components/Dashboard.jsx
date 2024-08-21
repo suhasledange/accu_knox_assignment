@@ -30,7 +30,7 @@ const Dashboard = () => {
         </div>
 
 
-        <div className="flex flex-col gap-3 items-start w-full px-1 mt-2">
+        <div className="flex flex-col gap-2 items-start w-full px-1 mt-2">
       {dashboardData?.categories?.map((category) => (
         <Category
           key={category.id}

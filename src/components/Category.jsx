@@ -26,7 +26,7 @@ const Category = ({ category }) => {
             onRemoveWidget={() => removeWidget(category.id, widget.id)}
           />
         ))}
-          <div onClick={(()=>setFormDialog(true))} className=" cursor-pointer border flex-shrink-0 flex items-center justify-center border-gray-300 p-2 w-[29rem] h-44 rounded-lg bg-gray-50">
+          <div onClick={(()=>setFormDialog(true))} className=" cursor-pointer border flex-shrink-0 flex items-center justify-center border-gray-300 p-2 w-[29rem] h-[12rem] rounded-lg bg-gray-50">
       <button
         className="text-gray-600 font-medium rounded-md flex text-sm items-center gap-1 justify-center py-1 px-3 border-2"
       >
