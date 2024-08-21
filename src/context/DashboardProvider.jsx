@@ -52,6 +52,7 @@ export const DashboardProvider = ({ children }) => {
                   id: `${categoryId}-${widgetName.toLowerCase().replace(/\s+/g, '-')}`,
                   name: widgetName,
                   text: widgetText,
+                  graph:false,
                   shown: true,
                 },
               ],

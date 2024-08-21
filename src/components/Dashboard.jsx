@@ -17,7 +17,8 @@ const Dashboard = () => {
     }
 
   return (
-    <Container maxWidth="xl" className='bg-gray-200 h-full pb-8'>
+    <div className='bg-gray-100'>
+    <Container maxWidth="xl" className='h-full pb-8'>
     <div className='pt-4 mx-auto w-full flex-col items-center justify-center'>
         <div className='flex items-center justify-between w-full'>     
                 <h1 className='font-bold text-md'>CNAPP Dashboard</h1>
@@ -42,6 +43,8 @@ const Dashboard = () => {
     </div>
     <FormMenu/>
 </Container>
+</div>
+
   )
 }
 

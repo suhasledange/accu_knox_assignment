@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDashboardContext } from "../context/DashboardProvider";
 import CloseIcon from "@mui/icons-material/Close";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const FormMenu = () => {
   const { register, handleSubmit, reset } = useForm();
@@ -11,7 +12,9 @@ const FormMenu = () => {
     formDialog,
     setFormDialog,
     addWidget,
+    removeWidget,
     toggleWidgetVisibility,
+
   } = useDashboardContext();
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -67,6 +70,11 @@ const FormMenu = () => {
       reset();
     }
   };
+
+  const handleRemoveWidget = (categoryID,widgetID)=>{
+
+      
+  }
 
   const handleConfirm = () => {
     Object.keys(widgetVisibility).forEach((widgetId) => {
@@ -141,9 +149,11 @@ const FormMenu = () => {
                   {dashboardData.categories
                     .find((category) => category.id === selectedCategory)
                     ?.widgets.map((widget) => (
+                      <div 
+                      key={widget.id}
+                      className="border flex items-center justify-between">
                       <label
-                        key={widget.id}
-                        className="custom-checkbox flex border p-1 px-2 items-center rounded-sm border-gray-300 space-x-3"
+                        className="custom-checkbox flex p-1 px-2 items-center rounded-sm border-gray-300 space-x-3"
                       >
                         <input
                           type="checkbox"
@@ -152,6 +162,8 @@ const FormMenu = () => {
                         />
                         <span>{widget.name}</span>
                       </label>
+                      <DeleteIcon onClick={()=>removeWidget(selectedCategory,widget.id)} fontSize="small" className="text-gray-800 cursor-pointer"/>
+                      </div>
                     ))}
                 </div>
                 {/* Add Widget Button/Icon */}

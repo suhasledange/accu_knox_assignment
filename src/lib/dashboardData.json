@@ -3,43 +3,99 @@
     {
       "id": "cspm-executive-dashboard",
       "name": "CSPM Executive Dashboard",
-      "shortname":"CSPM",
+      "shortname": "CSPM",
       "widgets": [
         {
           "id": "cloud-accounts",
           "name": "Cloud Accounts",
           "text": "Random text",
-          "shown": true
+          "graph":true,
+          "shown": true,
+          "chartData": {
+            "labels": [
+              "Connected (2)",
+              "Not Connected (2)"
+            ],
+            "total":"2",
+            "datasets": [
+              {
+                "labels":"Cloud Accounts",
+                "data": [2,2],
+                "backgroundColor": [
+                  "rgba(225,235,255, 1)",
+                  "rgba(85,120,255, 1)"
+                ],
+                "borderColor": [
+                  "rgba(225,235,255, 1)",
+                  "rgba(85,120,255, 1)"
+                ],
+                "borderWidth": 1
+              }
+            ]
+          }
         },
         {
           "id": "cloud-account-risk",
           "name": "Cloud Account Risk Assessment",
           "text": "Random text",
-          "shown": true
+          "graphName": "Doughnut",
+          "graph":true,
+          "shown": true,
+          "chartData": {
+            "labels": [
+              "Failed (1689)",
+              "Warning (681)",
+              "Not available (36)",
+              "Passed (7253)"
+            ],
+            "total":"9659",
+            "datasets": [
+              {
+               "labels":"Risk Assessment",
+                "data": [1689,681,100,7253],
+                "backgroundColor": [
+                  "rgba(185,20,15, 1)",
+                  "rgba(250,215,50, 1)",
+                  "rgba(202,207,221, 1)",
+                  "rgba(25,165,90, 1)"
+                ],
+                "borderColor": [
+                  "rgba(185,20,15, 1)",
+                  "rgba(250,215,50, 1)",
+                  "rgba(202,207,221, 1)",
+                  "rgba(25,165,90, 1)"
+                ],
+                "borderWidth": 1
+              }
+            ]
+          }
         }
       ]
     },
     {
       "id": "cwpp-dashboard",
       "name": "CWPP Dashboard",
-      "shortname":"CWPP",
+      "shortname": "CWPP",
       "widgets": [
         {
           "id": "top-namespace-alerts",
           "name": "Top 5 Namespace Specific Alerts",
           "text": "Random text",
+          "graph":false,
           "shown": true
         },
         {
           "id": "workload-alerts",
           "name": "Workload Alerts",
           "text": "Random text",
+          "graph":false,
           "shown": true
         },
         {
           "id": "sample-id",
           "name": "Sample Workload",
           "text": "Random text",
+          "graph":false,
           "shown": false
         }
       ]
@@ -47,18 +103,20 @@
     {
       "id": "image-dashboard",
       "name": "Registry Scan",
-      "shortname":"Image",
+      "shortname": "Image",
       "widgets": [
         {
           "id": "risk-assessment",
           "name": "Image Risk Assessment",
           "text": "Random text",
+          "graph":false,
           "shown": true
         },
         {
           "id": "security-issues",
           "name": "Image Security Issues",
           "text": "Random text",
+          "graph":false,
           "shown": true
         }
       ]
@@ -66,12 +124,13 @@
     {
       "id": "Ticket-dashboard",
       "name": "Ticket Dashboard",
-      "shortname":"Ticket",
+      "shortname": "Ticket",
       "widgets": [
         {
           "id": "text-assessment",
           "name": "Text Assessment",
           "text": "Random text",
+          "graph":false,
           "shown": false
         }
       ]
