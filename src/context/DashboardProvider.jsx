@@ -20,6 +20,7 @@ const addShownKeyToInitialData = (data) => {
 
 export const DashboardProvider = ({ children }) => {
   const [formDialog, setFormDialog] = useState(false);
+  
   const [dashboardData, setDashboardData] = useState(() => {
     const savedData = localStorage.getItem('dashboardData');
     const parsedData = savedData ? JSON.parse(savedData) : initialDashboardData;
@@ -53,7 +54,7 @@ export const DashboardProvider = ({ children }) => {
                   name: widgetName,
                   text: widgetText,
                   graph:false,
-                  shown: true,
+                  shown: false,
                 },
               ],
             }

@@ -1,19 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDashboardContext } from '../context/DashboardProvider';
 import Widget from './Widget';
 import AddIcon from '@mui/icons-material/Add';
 
 const Category = ({ category }) => {
-  const { addWidget, removeWidget,setFormDialog } = useDashboardContext();
-  const [widgetName, setWidgetName] = useState('');
-  const [widgetText, setWidgetText] = useState('');
-  const handleAddWidget = () => {
-    if (widgetName.trim() && widgetText.trim()) {
-      addWidget(category.id, widgetName, widgetText);
-      setWidgetName('');
-      setWidgetText('');
-    }
-  };
+  const { removeWidget,setFormDialog } = useDashboardContext();
+
 
   return (
     <div className="w-full ">
@@ -35,30 +27,7 @@ const Category = ({ category }) => {
     </div>
       </div>
      
-     
-      {/* <div className="mt-6">
-        <input
-          type="text"
-          className="border border-gray-300 rounded-lg p-2 mr-2"
-          placeholder="Widget Name"
-          value={widgetName}
-          onChange={(e) => setWidgetName(e.target.value)}
-        />
-        <input
-          type="text"
-          className="border border-gray-300 rounded-lg p-2 mr-2"
-          placeholder="Widget Text"
-          value={widgetText}
-          onChange={(e) => setWidgetText(e.target.value)}
-        />
-        <button
-          onClick={handleAddWidget}
-          className="bg-blue-500 text-white p-2 rounded-lg"
-        >
-          Add Widget
-        </button>
-      </div> */}
-
+    
 
     </div>
   );
